@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     //boton para probar la lectura del fichero y hacer el insert de la temp y humedad en la base datos
     $('#charge').click(function () {
-        document.location.href = "getSetTempHume.php";
+        document.location.href = "getSetTH.php";
         alert("Caldera Prendida");
     });
 })
