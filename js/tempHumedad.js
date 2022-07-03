@@ -1,14 +1,14 @@
 $(document).ready(function () {
 
-    //boton para probar la lectura del fichero y hacer el insert de la temp y humedad en la base datos
+    //boton para probar la lectura del fichero y hacer el insert de la temp y humidity en la base datos
     $('#charge').click(function () {
         document.location.href = "getSetTH.php";
-        alert("Caldera Prendida");
+        alert("Gas Boiler ON");
     });
 })
 
 cargaDatos();
-//script que genera los medidores de temperatura y humedad proporcionados por google
+//script que genera los medidores de temperature y humidity proporcionados por google
 google.charts.load('current', { 'packages': ['gauge'] });
 google.charts.setOnLoadCallback(drawChart);
 
@@ -17,22 +17,21 @@ function cargaDatos() {
     //llama al fichero (getSetTempHume.php) que lee el txt, sube los datos a la BD y borra el txt.
     setInterval(function () {
         $.ajax({
-            /*url:"http://localhost/Example/sensores/DatoSensores.php?q=1",*/
-            url: "getSetTempHume.php",
+            url: "getSetTH.php",
             type: 'GET',
             dataType: 'json',
             async: true,
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 if (data.val == 1) {
-                    alert("Carga de datos correcta");
+                    alert("OK");
                 } else {
-                    alert("carga incorrecta");
+                    alert("NO CHARGE");
                 }
 
             },
             error: function (data) {
-                alert('Fallo en el fichero getSettempHume.php! '+ data.val);
+                alert('Failure in getSetTH.php! '+ data.val);
             }
         });
     }, /*960000*/60000);
@@ -43,8 +42,8 @@ function drawChart() {
     //datos
     var data = google.visualization.arrayToDataTable([
         ['Label', 'Value'],
-        ['Humedad', 0],
-        ['Temperatura', 0]
+        ['humidity', 0],
+        ['temperature', 0]
 
     ]);
     /* opciones  */
@@ -56,7 +55,7 @@ function drawChart() {
     };
     //creando el medidor
     //se actualiza cada 16(960 000ms) min porque el sensor lee cada 15(900 000ms) min
-    var chart = new google.visualization.Gauge(document.getElementById('Medidores'));
+    var chart = new google.visualization.Gauge(document.getElementById('gauges'));
 
     chart.draw(data, options);
 
@@ -70,8 +69,8 @@ function drawChart() {
         var Respuesta = jQuery.parseJSON(JSON);
 
         //posicion 0 de columna 1
-        data.setValue(0, 1, Respuesta[0].humedad);
-        data.setValue(1, 1, Respuesta[0].temperatura);
+        data.setValue(0, 1, Respuesta[0].humidity);
+        data.setValue(1, 1, Respuesta[0].temperature);
         chart.draw(data, options);
     }, /*960000*/90000);
 
