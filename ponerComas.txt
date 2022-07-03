@@ -1,0 +1,34 @@
+
+/*recuperar datos del fichero temp.txt */
+if (!$fp) {
+    echo '<p>No he pogut. Torna a introduir-la</p>';
+} else {
+    //En cas que hagi pogut obrir bloquejo
+    flock($fp, LOCK_EX);
+
+    //Vaig extraient les dades de temp
+    while (!feof($fp)) {
+        $temp = $temp . fgets($fp, 1024) . ", ";
+    }
+    //eliminar la ultima coma en caso de que el fichero temp tenga la ultima linea en blanco
+    $temp = chop($temp, " ..,");
+    flock($fp, LOCK_UN);
+    fclose($fp);
+}
+
+/*recuperar datos del fichero humedad.txt */
+if (!$fh) {
+    echo '<p>No he pogut. Torna a introduir-la</p>';
+} else {
+    //En cas que hagi pogut obrir bloquejo
+    flock($fh, LOCK_EX);
+
+    //Vaig extraient les dades de temp
+    while (!feof($fh)) {
+        $humedad = $humedad . ", " .  fgets($fh, 1024);
+    }
+     //eliminar la ultima coma en caso de que el fichero humedad tenga la ultima linea en blanco
+    $humedad = chop($humedad, " ..,");
+    flock($fh, LOCK_UN);
+    fclose($fh);
+}
