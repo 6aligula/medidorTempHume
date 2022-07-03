@@ -49,7 +49,7 @@ $llave = 0;
 inserta($llave, $temperature, $humidity);
 
 //Un cop llegit la dada i guardada enm la BD borro el que hi ha dins al fitxer temperature$temperature.txt
-$fq = fopen("temperature$temperature.txt", 'w+');
+$fq = fopen("temperature.txt", 'w+');
 $temperature = "";
 if (!$fq) {
     echo '<p>No he pogut emmagatzemar el contingut de la comanda. Torna a introduir-la</p>';
@@ -63,7 +63,7 @@ if (!$fq) {
     fclose($fq);
 }
 //Un cop llegit la dada i guardada enm la BD borro el que hi ha dins al fitxer humidity$humidity.txt
-$fq2 = fopen("humidity$humidity.txt", 'w+');
+$fq2 = fopen("humidity.txt", 'w+');
 $humidity = "";
 if (!$fq2) {
     echo '<p>No he pogut emmagatzemar el contingut de la comanda. Torna a introduir-la</p>';
@@ -82,12 +82,9 @@ function inserta($llave,  $temperature, $humidity)
 {
     //base de datos
     $h = 'localhost';
-    $u = 'root';
-    //$u = 'pi';
-    //$p = 'raspberry';
-    $p = '';
-    //$b = 'temperature$temperaturehumidity$humidity';
-    $b = 'temperature$temperaturehumidity$humidity';
+    $u = 'USER';
+    $p = 'password';
+    $b = 'temperaturehumidity';
     $ok = 1;
 
     $conn = mysqli_connect($h, $u, $p, $b);
