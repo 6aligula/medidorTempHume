@@ -37,7 +37,7 @@ function load() {
     }, /*960000*/60000);
 }
 
-//funcion para dibujar los medidores 
+//Function for draw gauges  
 function drawChart() {
     //datos
     var data = google.visualization.arrayToDataTable([
