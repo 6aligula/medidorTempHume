@@ -7,13 +7,13 @@ $(document).ready(function () {
     });
 })
 
-cargaDatos();
+load();
 //script que genera los medidores de temperature y humidity proporcionados por google
 google.charts.load('current', { 'packages': ['gauge'] });
 google.charts.setOnLoadCallback(drawChart);
 
 //funcion para cargar la base de datos cada minuto
-function cargaDatos() {
+function load() {
     //llama al fichero (getSetTempHume.php) que lee el txt, sube los datos a la BD y borra el txt.
     setInterval(function () {
         $.ajax({
@@ -53,7 +53,7 @@ function drawChart() {
         yellowFrom: 75, yellowTo: 90,
         minorTicks: 5
     };
-    //creando el medidor
+    //create gauge
     //se actualiza cada 16(960 000ms) min porque el sensor lee cada 15(900 000ms) min
     var chart = new google.visualization.Gauge(document.getElementById('gauges'));
 
@@ -61,14 +61,13 @@ function drawChart() {
 
     setInterval(function () {
         var JSON = $.ajax({
-            /*                 url:"http://localhost/Example/sensores/DatoSensores.php?q=1",*/
             url: "DatoSensores.php?q=1",
             dataType: 'json',
             async: false
         }).responseText;
         var Respuesta = jQuery.parseJSON(JSON);
 
-        //posicion 0 de columna 1
+        //position 0 of col 1
         data.setValue(0, 1, Respuesta[0].humidity);
         data.setValue(1, 1, Respuesta[0].temperature);
         chart.draw(data, options);
