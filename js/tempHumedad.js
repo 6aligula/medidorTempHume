@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     //boton para probar la lectura del fichero y hacer el insert de la temp y humedad en la base datos
-    $('#alimenta').click(function () {
+    $('#charge').click(function () {
         document.location.href = "getSetTempHume.php";
         alert("Caldera Prendida");
     });
