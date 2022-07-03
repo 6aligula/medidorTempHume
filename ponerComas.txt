@@ -1,4 +1,4 @@
-
+DEGUG
 /*recuperar datos del fichero temp.txt */
 if (!$fp) {
     echo '<p>No he pogut. Torna a introduir-la</p>';
